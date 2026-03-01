@@ -42,15 +42,12 @@ export function ShareModal({ quote, open, onOpenChange }: ShareModalProps) {
     if (!canvasRef.current) return null;
     setExporting(true);
     try {
+      const elementWidth = canvasRef.current.offsetWidth;
+      const scale = 1080 / elementWidth;
+
       const dataUrl = await toPng(canvasRef.current, {
-        width: 1080,
-        height: 1920,
-        pixelRatio: 1,
+        pixelRatio: scale,
         cacheBust: true,
-        style: {
-          width: "1080px",
-          height: "1920px",
-        },
       });
       return dataUrl;
     } catch {
